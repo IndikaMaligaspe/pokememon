@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import './App.css';
-import pokemon from './pokemon.json'
+// import pokemon from './pokemon.json'
 
 
 function PokemonInfo( {name, base}) {
@@ -65,7 +65,15 @@ PokemonRow.propTypes = {
 function App() {
 
   const [filter, setFilter] = React.useState("");
-  const [selectedItem, setSelectedItem] = React.useState(null)
+  const [selectedItem, setSelectedItem] = React.useState(null);
+  const [pokemon, setPokemon] = React.useState([]);
+
+  React.useState(()=>{
+    fetch("/pokememon/pokemon.json")
+    .then(resp => resp.json())
+    .then((data) => setPokemon(data));
+  },[]);
+
   return (
     <div
       style={{
