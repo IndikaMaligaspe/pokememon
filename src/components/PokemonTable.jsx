@@ -1,7 +1,9 @@
 import React from "react";
 import PokemonRow from "./PokemonRow";
+import PokemonContext from "./pokemonContext";
 
-function PokemonTable({pokemon, filter, setSelectedItem}) {
+function PokemonTable() {
+    const {pokemon, filter, setSelectedItem} = React.useContext(PokemonContext)
     return (
         <table width="100%">
             <thead>

@@ -1,11 +1,11 @@
 import React from "react";
 
-
 import "./App.css";
 import styled from "@emotion/styled";
 import PokemonTable from "./components/PokemonTable";
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
+import PokemonContext from "./components/pokemonContext";
 
 const Title = styled.h1`
   text-align: center;
@@ -23,9 +23,6 @@ const Container = styled.div`
 
 `
 
-
-
-
 function App() {
 
   const [filter, setFilter] = React.useState("");
@@ -39,32 +36,28 @@ function App() {
   },[]);
 
   return (
-    <Container>
-      <Title>Pokemon Search</Title>
-        <TwoColumnLayout>
-          <div>
-            <PokemonFilter 
-              filter={filter}
-              setFilter={setFilter}
-            />
-            <PokemonTable
-               pokemon={pokemon}
-               filter={filter}
-               setSelectedItem={setSelectedItem}
-            />
-          </div>  
-          <div>
-              {
-                selectedItem && (
-                  <PokemonInfo 
-                    {...selectedItem}
-
-                  />
-                )
-              }
-          </div>
-      </TwoColumnLayout>  
-    </Container>
+    <PokemonContext.Provider 
+      value ={{
+        filter,
+        selectedItem,
+        pokemon,
+        setFilter,
+        setSelectedItem,
+        setPokemon,
+      }}>
+      <Container>
+        <Title>Pokemon Search</Title>
+          <TwoColumnLayout>
+            <div>
+              <PokemonFilter/>
+              <PokemonTable/>
+            </div>  
+            <div>
+             <PokemonInfo/>
+            </div>
+        </TwoColumnLayout>  
+      </Container>
+    </PokemonContext.Provider>
   );
 }
 
