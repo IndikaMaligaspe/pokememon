@@ -10,11 +10,18 @@ const Input = styled.input`
 `
 
 function PokemonFilter() {
-    const {filter, setFilter} = React.useContext(PokemonContext)
-    return (<Input name="filter" 
-        value={filter} 
-        onChange={(evt) => setFilter(evt.target.value)} />
-        )
+    const {
+        state :{filter}, 
+        dispatch} = React.useContext(PokemonContext)
+    return (
+        <Input name="filter" 
+            value={filter} 
+            onChange={(evt) => 
+              dispatch({
+                type:"SET_FILTER",
+                payload:evt.target.value
+              })} />
+    )
 }
 
 export default  PokemonFilter;
